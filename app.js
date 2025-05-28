@@ -152,3 +152,32 @@
 // });
 
 // tom.sayHi();
+
+// const fs = require("fs");
+
+// const writeableStream = fs.createWriteStream("hello.txt");
+// writeableStream.write("Привет мир!\n")
+// writeableStream.write("Привет мир!\n")
+// writeableStream.write("Привет мир!\n")
+
+// const readableStream = fs.createReadStream("hello.txt");
+// readableStream.on("hello.txt", function(chunk){
+//     console.log(chunk.toString());
+// })
+
+// const readableStream = fs.createReadStream("hello.txt");
+// const writeableStream = fs.createWriteStream("some.txt");
+
+// readableStream.pipe(writeableStream);
+
+// const fs = require("fs");
+// const zlib = require("zlib");
+  
+// const readableStream = fs.createReadStream("hello.txt");
+  
+// const writeableStream = fs.createWriteStream("hello.txt.gz");
+  
+// const gzip = zlib.createGzip();
+  
+// readableStream.pipe(gzip).pipe(writeableStream);
+
