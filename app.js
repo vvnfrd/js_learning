@@ -181,3 +181,52 @@
   
 // readableStream.pipe(gzip).pipe(writeableStream);
 
+// ГЛАВА 3. СЕРВЕР
+
+// const http = require("http");
+
+// const server = http.createServer(function(request, response){
+
+//     response.setHeader("Content-Type", "text/html; charset=utf-8;");
+
+//     if(request.url === "/home" || request.url === "/"){
+//         response.write("<h2>Home</h2>");
+//     }
+//     else if(request.url == "/about"){
+//         response.write("<h2>About</h2>");
+//     }
+//     else if(request.url == "/contact"){
+//         response.write("<h2>Contacts</h2>");
+//     }
+//     else{
+//         response.write("<h2>Not found</h2>");
+//     }
+//     response.end();
+    
+// });
+// server.listen(3000, function(){console.log("http://localhost:3000/")});
+
+// method 1
+const http = require('http');
+const fs = require('fs');
+
+http.createServer(function(req, res){
+
+    console.log('Запрошенный адрес:', req.url);
+    console.log(req.url)
+    const filePath = req.url.substring(1);
+    console.log(filePath)
+    fs.access(filePath, fs.constants.R_OK, err => {
+        if (err){
+            res.statusCode = 404;
+            res.end("Resourse not found!");
+        }
+        else{
+            fs.createReadStream(filePath).pipe(res);
+        }
+    })
+}).listen(3000, function(){
+    console.log('server started')
+})
+
+// method 2
