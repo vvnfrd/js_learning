@@ -404,3 +404,28 @@
  
  
 // app.listen(3000);
+
+// const express = require("express");
+   
+// const app = express();
+   
+// const urlencodedParser = express.urlencoded({extended: false});
+// app.get("/", function (_, response) {
+//     response.sendFile(__dirname + "/public/index.html");
+// });
+// app.post("/", urlencodedParser, function (request, response) {
+//     if(!request.body) return response.sendStatus(400);
+//     console.log(request.body);
+//     response.send(`${request.body.userName} - ${request.body.userAge}`);
+// });
+   
+// app.listen(3000, ()=>console.log("Сервер запущен..."));
+
+// const express = require("express");
+// const app = express();
+ 
+// app.get("/products/:productId", function (request, response) {
+//   response.send("productId: " + request.params["productId"])
+// });
+ 
+// app.listen(3000);

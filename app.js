@@ -1,15 +1,33 @@
 const express = require("express");
-   
 const app = express();
-   
-const urlencodedParser = express.urlencoded({extended: false});
-app.get("/", function (_, response) {
-    response.sendFile(__dirname + "/public/index.html");
+
+const productRouter = express.Router();
+
+
+
+productRouter.use("/create", function(request, response){
+  response.send("Добавление товара");
 });
-app.post("/", urlencodedParser, function (request, response) {
-    if(!request.body) return response.sendStatus(400);
-    console.log(request.body);
-    response.send(`${request.body.userName} - ${request.body.userAge}`);
+productRouter.use("/:id", function(request, response){
+  response.send(`Товар ${request.params.id}`);
 });
-   
-app.listen(3000, ()=>console.log("Сервер запущен..."));
+productRouter.use("/", function(request, response){
+  response.send("Список товаров");
+});
+
+app.use("/about", function (_, response) {
+  response.send("О сайте");
+});
+ 
+
+
+app.use("/products", productRouter);
+
+app.use("/about", function (request, response) {
+  response.send("О сайте");
+});
+ 
+app.use("/", function (request, response) {
+  response.send("Главная страница");
+});
+app.listen(3000);
