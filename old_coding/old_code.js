@@ -286,3 +286,121 @@
 //         fs.readFile("index.html", (_, data) => response.end(data));
 //     }
 // }).listen(3000, ()=>console.log("Сервер запущен по адресу http://localhost:3000"));
+
+// app.get("/", function(request, response) {
+//     response.send("<h2>Главная страница!!!</h2>");
+// })
+
+// app.get('/about', function(request, response) {
+//     response.send("<h2>О сайте</h2>");
+// })
+
+// app.get('/contacts', function(request, response) {
+//     response.send("<h2>Контакты</h2>");
+// })
+
+
+// app.listen(3000)
+
+//MIDDLEWARE
+// const express = require("express");
+// const app = express();
+// const fs = require('fs')
+// app.use(function(request, response, next) {
+
+//     const now = new Date();
+//     const hour = now.getHours();
+//     const minutes = now.getMinutes();
+//     const seconds = now.getSeconds();
+
+//     const data = `${hour}:${minutes}:${seconds} ${request.method} ${request.url} ${request.get("user-agent")}`;
+//     fs.appendFile("server.log", data + "\n", function(error){
+//         if(error) return console.log(error);
+//         console.log('Запись выполнена');
+//     });
+//     next();
+// });
+
+// app.get("/", function(_, response){
+//     response.send("Hello");
+// });
+// app.listen(3000)
+
+//Отправка ответа
+
+// const express = require("express");
+// const app = express();
+ 
+// app.use(function (_, response) {
+//   response.sendFile(__dirname + "/index.html");
+// });
+
+// app.use("/home/foo/bar",function (_, response) {
+//   response.sendStatus(404)
+// });
+ 
+// app.listen(3000);
+
+//Static files in Express
+
+// const express = require("express");
+// const app = express();
+ 
+// app.use(express.static("public"));
+ 
+// app.use("/", function(_, response){
+     
+//     response.send("<h1>Главная страница</h1>");
+// });
+ 
+// app.listen(3000);
+
+//Маршрутизация в express
+
+// const express = require('express');
+// const app = express();
+
+// app.get("/about", function(_, response){
+     
+//     response.send("<h1>О сайте</h1>");
+// });
+ 
+// app.use("/contact", function(_, response){
+     
+//     response.send("<h1>Контакты</h1>");
+// });
+ 
+// app.get("/", function(_, response){
+     
+//     response.send("<h1>Главная страница</h1>");
+// });
+
+// app.get("/bo+k", function (request, response) {
+//     response.send(request.url)
+// });
+
+// app.use("/index",function (_, response) {
+//   response.redirect("https://metanit.com")
+// });
+ 
+// app.listen(3000);
+
+// const express = require("express");
+  
+// const app = express();
+// app.get("/", function(_, response){
+      
+//     response.send("<h1>Главная страница</h1>");
+// });
+
+// app.use("/about", function(request, response){
+      
+//     console.log(request.query);
+//     const id = request.query.user.id;
+//     const name = request.query.user.name;
+     
+//     response.send(`<h3>id: ${id}<br>name: ${name}</h3>`);
+// });
+ 
+ 
+// app.listen(3000);
