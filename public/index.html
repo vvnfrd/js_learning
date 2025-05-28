@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Регистрация</title>
+    <title>METANIT.COM</title>
     <meta charset="utf-8" />
 </head>
 <body>
     <h1>Введите данные</h1>
-    <form method="post">
-        <label>Имя</label><br>
-        <input type="text" name="userName" /><br><br>
-        <label>Возраст</label><br>
-        <input type="number" name="userAge" /><br><br>
+    <form id="myForm" action="/user" method="post">
+        <p>
+          <label>Имя</label><br>
+          <input type="text" name="userName" />
+        </p>
+        <p>
+          <label>Возраст</label><br>
+          <input type="number" name="userAge" />
+        </p>
         <input type="submit" value="Отправить" />
     </form>
+<script>
+const myForm = document.getElementById("myForm");
+  myForm.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const username = myForm.userName.value;
+      const userage = myForm.userAge.value;
+  
+      const response = await fetch("/user", { 
+                method: "POST", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({name: username, age: userage})
+      });
+      // из объекта ответа извлекаем текст ответа
+      const responseText = await response.text();
+      // console.log(responseText);
+  });
+</script>
 </body>
 </html>

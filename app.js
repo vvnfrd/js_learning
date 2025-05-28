@@ -1,33 +1,19 @@
 const express = require("express");
+   
 const app = express();
-
-const productRouter = express.Router();
-
-
-
-productRouter.use("/create", function(request, response){
-  response.send("Добавление товара");
+// создаем парсер для данных в формате json
+const jsonParser = express.json();
+   
+app.post("/user", jsonParser, function (request, response) {
+    const user = request.body;
+    // console.log(user);
+    if(!user) return response.sendStatus(400);
+    const responseText = `Your name: ${user.name}  Your age: ${user.age}`;
+    response.json({message: responseText}); // отправляем ответ
 });
-productRouter.use("/:id", function(request, response){
-  response.send(`Товар ${request.params.id}`);
+   
+app.get("/", function(request, response){
+    response.sendFile(__dirname + "/public/index.html");
 });
-productRouter.use("/", function(request, response){
-  response.send("Список товаров");
-});
-
-app.use("/about", function (_, response) {
-  response.send("О сайте");
-});
- 
-
-
-app.use("/products", productRouter);
-
-app.use("/about", function (request, response) {
-  response.send("О сайте");
-});
- 
-app.use("/", function (request, response) {
-  response.send("Главная страница");
-});
+   
 app.listen(3000);
