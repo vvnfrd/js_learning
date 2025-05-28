@@ -1,17 +1,40 @@
+
+
+// app.get("/", function(request, response) {
+//     response.send("<h2>Главная страница!!!</h2>");
+// })
+
+// app.get('/about', function(request, response) {
+//     response.send("<h2>О сайте</h2>");
+// })
+
+// app.get('/contacts', function(request, response) {
+//     response.send("<h2>Контакты</h2>");
+// })
+
+
+// app.listen(3000)
+
+//MIDDLEWARE
 const express = require("express");
 const app = express();
+const fs = require('fs')
+app.use(function(request, response, next) {
 
-app.get("/", function(request, response) {
-    response.send("<h2>Главная страница!!!</h2>");
-})
+    const now = new Date();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
 
-app.get('/about', function(request, response) {
-    response.send("<h2>О сайте</h2>");
-})
+    const data = `${hour}:${minutes}:${seconds} ${request.method} ${request.url} ${request.get("user-agent")}`;
+    fs.appendFile("server.log", data + "\n", function(error){
+        if(error) return console.log(error);
+        console.log('Запись выполнена');
+    });
+    next();
+});
 
-app.get('/contacts', function(request, response) {
-    response.send("<h2>Контакты</h2>");
-})
-
-
+app.get("/", function(_, response){
+    response.send("Hello");
+});
 app.listen(3000)
