@@ -1,20 +1,31 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-   
-const userScheme = new Schema({
-    name: String,
-    age: Number
-});
- 
-const User = mongoose.model("User", userScheme);
- 
-async function main() {
- 
-    await mongoose.connect("mongodb://127.0.0.1:27017/usersdb");
-     
-    const tom = new User({name: "Tom", age: 34});
-    // добавляем объект в БД
-    await tom.save();
-    console.log(tom);
-}
-main().catch(console.log).finally(async()=>await mongoose.disconnect());
+const mysql = require("mysql2");
+  
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "usersbd",
+  password: "13799731"
+}).promise();
+connection.connect(function(err){
+    if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      console.log("Подключение к серверу MySQL успешно установлено");
+    }
+ });
+
+ connection.query("SELECT * FROM users")
+ .then(result =>{
+   console.log(result);
+ })
+ .catch(err =>{
+   console.log(err);
+ });
+
+ connection.end(function(err) {
+    if(err) {
+        return console.log("Ощибка" + err.message);
+    }
+    console.log("Подключение закрыто")
+ })
