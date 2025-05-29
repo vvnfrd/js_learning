@@ -58,7 +58,7 @@ async function GetUser(id) {
     if (response.ok === true) {
         const user = await response.json();
         const form = document.forms["userForm"];
-        form.elements["id"].value = user.id;
+        form.elements["id"].value = user._id;
         form.elements["name"].value = user.name;
         form.elements["age"].value = user.age;
     }
@@ -93,7 +93,7 @@ async function EditUser(userId, userName, userAge) {
     if (response.ok === true) {
         const user = await response.json();
         reset();
-        document.querySelector(`tr[data-rowid="${user.id}"]`).replaceWith(row(user));
+        document.querySelector(`tr[data-rowid="${user._id}"]`).replaceWith(row(user));
     }
 }
 // Удаление пользователя
@@ -104,7 +104,7 @@ async function DeleteUser(id) {
     });
     if (response.ok === true) {
         const user = await response.json();
-        document.querySelector(`tr[data-rowid="${user.id}"]`).remove();
+        document.querySelector(`tr[data-rowid="${user._id}"]`).remove();
     }
 }
     
@@ -119,10 +119,10 @@ function reset() {
 function row(user) {
     
     const tr = document.createElement("tr");
-    tr.setAttribute("data-rowid", user.id);
+    tr.setAttribute("data-rowid", user._id);
         
     const idTd = document.createElement("td");
-    idTd.append(user.id);
+    idTd.append(user._id);
     tr.append(idTd);
         
     const nameTd = document.createElement("td");
@@ -136,22 +136,22 @@ function row(user) {
     const linksTd = document.createElement("td");
         
     const editLink = document.createElement("a");
-    editLink.setAttribute("data-id", user.id);
+    editLink.setAttribute("data-id", user._id);
     editLink.setAttribute("class", "btn");
     editLink.append("Изменить");
     editLink.addEventListener("click", e => {
         e.preventDefault();
-        GetUser(user.id);
+        GetUser(user._id);
     });
     linksTd.append(editLink);
         
     const removeLink = document.createElement("a");
-    removeLink.setAttribute("data-id", user.id);
+    removeLink.setAttribute("data-id", user._id);
     removeLink.setAttribute("class", "btn");
     removeLink.append("Удалить");
     removeLink.addEventListener("click", e => {
         e.preventDefault();
-        DeleteUser(user.id);
+        DeleteUser(user._id);
     });
         
     linksTd.append(removeLink);
