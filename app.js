@@ -9,9 +9,11 @@ async function run() {
         await mongoClient.connect();
         const db = mongoClient.db("usersdb")
         const collection = db.collection("users");
-        const count = await collection.countDocuments();
-        console.log(`В коллекции users ${count} документов`);
-
+        const user = {name: "Tom", age: 28}
+        const result = await collection.insertOne(user);
+        console.log(result);
+        console.log(user);
+        console.log(collection)
     }catch(err) {
         console.log("Возникла ошибка");
         console.log(err);
