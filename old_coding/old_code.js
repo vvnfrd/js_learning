@@ -605,3 +605,14 @@
 // app.listen(3000, function(){
 //     console.log("Сервер ожидает подключения...");
 // });
+
+//API testing
+// const express = require("express");
+// const app = express();
+
+// app.get("/", function(request, response){
+
+//     response.send("Hello Test");
+// });
+
+// module.exports.app = app;

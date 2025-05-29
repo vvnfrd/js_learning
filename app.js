@@ -1,9 +1,24 @@
-const express = require("express");
-const app = express();
+const MongoClient = require("mongodb").MongoClient;
 
-app.get("/", function(request, response){
+const url = "mongodb://127.0.0.1:27017/";
 
-    response.send("Hello Test");
-});
+const mongoClient = new MongoClient(url);
 
-module.exports.app = app;
+async function run() {
+    try {
+        await mongoClient.connect();
+        const db = mongoClient.db("usersdb")
+        const collection = db.collection("users");
+        const count = await collection.countDocuments();
+        console.log(`В коллекции users ${count} документов`);
+
+    }catch(err) {
+        console.log("Возникла ошибка");
+        console.log(err);
+    } finally {
+        // Закрываем подключение при завершении работы или при ошибке
+        await mongoClient.close();
+        console.log("Подключение закрыто");
+    }
+}
+run().catch(console.log);

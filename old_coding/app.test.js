@@ -1,6 +1,6 @@
 const request = require("supertest");
 
-const {app} = require("./app");
+const {app} = require("../app");
 
 it("should return Hello Test", function(done){
 
