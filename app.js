@@ -1,19 +1,21 @@
 const express = require("express");
-   
+const hbs = require("hbs");
 const app = express();
-// создаем парсер для данных в формате json
-const jsonParser = express.json();
-   
-app.post("/user", jsonParser, function (request, response) {
-    const user = request.body;
-    // console.log(user);
-    if(!user) return response.sendStatus(400);
-    const responseText = `Your name: ${user.name}  Your age: ${user.age}`;
-    response.json({message: responseText}); // отправляем ответ
+  
+app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + "/views/partials");
+ 
+app.use("/contact", function(request, response){
+      
+    response.render("contact", {
+        title: "Мои контакты",
+        email: "gavgav@mycorp.com",
+        phone: "+1234567890"
+    });
+}); 
+ 
+app.use("/", function(request, response){
+      
+    response.render("home.hbs");
 });
-   
-app.get("/", function(request, response){
-    response.sendFile(__dirname + "/public/index.html");
-});
-   
 app.listen(3000);
