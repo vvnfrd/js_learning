@@ -10,10 +10,8 @@ async function run() {
         const db = mongoClient.db("usersdb")
         const collection = db.collection("users");
         const user = {name: "Tom", age: 28}
-        const result = await collection.insertOne(user);
+        const result = await collection.find().toArray();
         console.log(result);
-        console.log(user);
-        console.log(collection)
     }catch(err) {
         console.log("Возникла ошибка");
         console.log(err);
